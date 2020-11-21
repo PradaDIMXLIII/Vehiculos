@@ -31,7 +31,7 @@ public class Vehiculo {
 	public String toString() {
 		return (getModelo() == null ? MODELO_NO_DISPONIBLE : getModelo())
 //		return getModelo()
-				+ " (" + color + ") " + modelo;
+				+ " (" + color + ")";
 	}
 
 }

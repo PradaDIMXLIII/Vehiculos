@@ -1,6 +1,5 @@
 package vehiculos;
 
-import static vehiculos.Coche.*;
 
 public class Ejemplo {
 
@@ -26,6 +25,10 @@ public class Ejemplo {
 		
 		System.out.println(miCoche);
 		System.out.println(miCoche2);
+		
+		System.out.println(new Coche ("BMW", "azul platino", 4));
+		System.out.println(new Coche ("SEAT TOLEDO", colorPorDefecto, 4));
+		System.out.println(new Moto("Suzuki", "negro"));
 	}
 
 }
