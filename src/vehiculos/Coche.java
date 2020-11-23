@@ -4,49 +4,50 @@ public class Coche extends Vehiculo {
 
 	private int numeroDeRuedas;
 	private String matricula;
+	protected static int miCodigoSecreto = 12345;
 
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
-	
+
 	public Coche() {
 		this("Blanco");
-//		numeroDeRuedas = 4;
+		// numeroDeRuedas = 4;
 	}
 
 	public Coche(String color) {
-//		this();
-//		numeroDeRuedas = 4;
-//		setColor(color); // como ya tengo el setter lo utilizo
+		// this();
+		// numeroDeRuedas = 4;
+		// setColor(color); // como ya tengo el setter lo utilizo
 		this(null, color);
 	}
-	
+
 	public Coche(String modelo, String color) {
-//		super(modelo, color);
-//		numeroDeRuedas = 4;
+		// super(modelo, color);
+		// numeroDeRuedas = 4;
 		this(modelo, color, 4);
 	}
-	
+
 	public Coche(String modelo, String color, int ruedas) {
 		super(modelo, color);
 		numeroDeRuedas = ruedas;
 	}
 
-//	public Coche color(String color) {
-//		setColor(color);
-//		return this;
-//	}
-//	
-//	public Coche modelo(String modelo) {
-//		this.modelo = modelo;
-//		return this;
-//	}
-	
-//	public static Coche crearConModelo(String modelo) {
-//		Coche coche = new Coche();
-//		coche.modelo = modelo;
-//		return coche;
-//	}
+	// public Coche color(String color) {
+	// setColor(color);
+	// return this;
+	// }
+	//
+	// public Coche modelo(String modelo) {
+	// this.modelo = modelo;
+	// return this;
+	// }
+
+	// public static Coche crearConModelo(String modelo) {
+	// Coche coche = new Coche();
+	// coche.modelo = modelo;
+	// return coche;
+	// }
 
 	@Override
 	public String toString() {
@@ -83,6 +84,4 @@ public class Coche extends Vehiculo {
 			return false;
 		return true;
 	}
-
-	
 }

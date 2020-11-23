@@ -1,7 +1,6 @@
 package vehiculos;
 
-
-public class Moto extends VehiculoConRuedas{
+public class Moto extends VehiculoConRuedas {
 
 	public Moto() {
 		super();
@@ -20,7 +19,4 @@ public class Moto extends VehiculoConRuedas{
 	public String toString() {
 		return "Moto: " + super.toString();
 	}
-	
-	
-
 }
