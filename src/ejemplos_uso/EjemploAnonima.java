@@ -1,28 +1,34 @@
-package vehiculos;
+package ejemplos_uso;
 
-public class Igualdad {
+import vehiculos.Coche;
+import vehiculos.Moto;
+import vehiculos.Vehiculo;
+import vehiculos.VehiculoConRuedas;
+
+public class EjemploAnonima {
 
 	public static void main(String[] args) {
-		Coche coche1 = new Coche("Seat Ibiza", "Rojo");
-		coche1.setMatricula("1234 BBB");
-		Coche coche2 = new Coche("Seat Ibiza", "Rojo");
-		coche2.setMatricula("1234 BBB");
-		Vehiculo coche3 = coche1;
+		Vehiculo original = new Vehiculo("Original", null);
+		System.out.println(original.getClass());
+		
+		Vehiculo anonimo = new Vehiculo("Anonimo", null) {
+			String ancla = "Ancla standard";
 
-		// Igualdad
-		System.out.println("coche1 y coche2 son iguales: " + coche1.equals(coche2));
-		System.out.println("Pinto coche2 de Negro");
-		coche2.setColor("Negro");
-		System.out.println("Los coches siguen siendo iguales: " + coche1.equals(coche2));
-		System.out.println("Cambio la matrícula a coche2");
-		coche2.setMatricula("5555 CCC");
-		System.out.println("Los coches siguen siendo iguales: " + coche1.equals(coche2));
+			@Override
+			public String getColor() {
+				// TODO Auto-generated method stub
+				return super.getColor() + "*";
+			}
 
-		// Identidad
-		System.out.println("coche1 y coche2 son el mismo: " + (coche1 == coche2));
-		System.out.println("coche1 y coche3 son el mismo: " + (coche3 == coche1));
-
-		// Clases anonimas
+			@Override
+			public String toString() {
+				// TODO Auto-generated method stub
+				return super.toString() + " " + ancla;
+			}
+			
+		};
+		System.out.println(anonimo);
+		
 		VehiculoConRuedas triciclo = new VehiculoConRuedas("Fisher-Price", "Multicolor") {
 
 			@Override
@@ -73,4 +79,6 @@ public class Igualdad {
 		System.out.println(barco.getClass());
 
 	}
-}
+
+	}
+

@@ -1,4 +1,9 @@
-package vehiculos;
+package ejemplos_uso;
+
+import vehiculos.Coche;
+import vehiculos.Moto;
+import vehiculos.Vehiculo;
+import vehiculos.VehiculoConRuedas;
 
 public class Ejemplo {
 
@@ -24,5 +29,6 @@ public class Ejemplo {
 		System.out.println(new Coche("BMW", "azul platino", 4));
 		System.out.println(new Coche("SEAT TOLEDO", colorPorDefecto, 4));
 		System.out.println(new Moto("Suzuki", "negro"));
+		
 	}
 }
