@@ -1,32 +1,15 @@
 package ejemplos_uso;
 
-<<<<<<< HEAD
-=======
-import java.util.Comparator;
-
->>>>>>> 114b3b5d3e2ef6afa61796fa73e9ab6a11ea9c92
-import vehiculos.Coche;
 import vehiculos.Moto;
 import vehiculos.Vehiculo;
 import vehiculos.VehiculoConRuedas;
 
 public class EjemploAnonima {
 
-<<<<<<< HEAD
-	public static void main(String[] args) {
-		Vehiculo original = new Vehiculo("Original", null);
-		System.out.println(original.getClass());
-		
-		Vehiculo anonimo = new Vehiculo("Anonimo", null) {
-			String ancla = "Ancla standard";
-
-			@Override
-			public String getColor() {
-				// TODO Auto-generated method stub
-=======
 	private static String colorValido2 = "Verde";
-	
+
 	public static void main(String[] args) {
+
 		Vehiculo original = new Vehiculo("Original", null);
 		System.out.println(original.getClass());
 
@@ -35,20 +18,22 @@ public class EjemploAnonima {
 
 			@Override
 			public String getColor() {
->>>>>>> 114b3b5d3e2ef6afa61796fa73e9ab6a11ea9c92
 				return super.getColor() + "*";
 			}
 
 			@Override
 			public String toString() {
-<<<<<<< HEAD
-				// TODO Auto-generated method stub
 				return super.toString() + " " + ancla;
 			}
-			
+
+			@Override
+			public int getNumeroDeRuedas() {
+				return 0;
+			}
+
 		};
 		System.out.println(anonimo);
-		
+
 		VehiculoConRuedas triciclo = new VehiculoConRuedas("Fisher-Price", "Multicolor") {
 
 			@Override
@@ -63,7 +48,7 @@ public class EjemploAnonima {
 			@Override
 			public void setColor(String color) {
 				if (!(color.equals("Rojo") || color.equals("Negro"))) {
-					System.out.println("No se permite ese color para " + modelo);
+					System.out.println("No se permite ese color para " + getModelo());
 				}
 			}
 		};
@@ -85,44 +70,10 @@ public class EjemploAnonima {
 		};
 
 		System.out.println(barco);
-		Coche cocheConPin = new Coche() {
-
-			@Override
-			public String toString() {
-				return "El código secreto es: " + miCodigoSecreto;
-			}
-		};
-
-		System.out.println(cocheConPin);
 		System.out.println(triciclo.getClass());
 		System.out.println(harley.getClass());
 		System.out.println(barco.getClass());
 
-	}
-
-	}
-
-=======
-				return super.toString() + " " + ancla;
-			}
-
-			@Override
-			public int getNumeroDeRuedas() {
-				return 0;
-			}
-
-		};
-
-		VehiculoConRuedas triciclo = new VehiculoConRuedas("Fisher-Price", "Multicolor") {
-			int numeroRuedas = 0;
-			
-			@Override
-			public int getNumeroDeRuedas() {
-				return numeroRuedas++;
-			}
-
-		};
-		
 		System.out.println(anonimo.getClass());
 
 		System.out.println(original);
@@ -131,26 +82,24 @@ public class EjemploAnonima {
 		System.out.println(triciclo);
 		System.out.println(triciclo);
 		System.out.println(triciclo);
-		
+
 		String colorValido1 = "Azul";
 //		String colorValido2 = "Verde";
-		
-		Moto harley = new Moto("Harley-Davidson", "Rojo") {
 
-		    @Override
-		    public void setColor(String color) {
-		        if(!(color.equals(colorValido1) || color.equals(colorValido2))) {
-		            System.out.println("No se permite ese color para " + getModelo());
-		        }
-		        else {
-		            super.setColor(color);
-		        }
-		    }
-		    
-		  };
-		  harley.setColor("Verde");
-		  System.out.println(harley);
+		Moto harley2 = new Moto("Harley-Davidson", "Rojo") {
+
+			@Override
+			public void setColor(String color) {
+				if (!(color.equals(colorValido1) || color.equals(colorValido2))) {
+					System.out.println("No se permite ese color para " + getModelo());
+				} else {
+					super.setColor(color);
+				}
+			}
+
+		};
+		harley.setColor("Verde");
+		System.out.println(harley2);
 	}
 
 }
->>>>>>> 114b3b5d3e2ef6afa61796fa73e9ab6a11ea9c92

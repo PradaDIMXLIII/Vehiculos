@@ -4,11 +4,11 @@ public class Motor {
 
 	String modelo;
 	float potencia; // CV
-	
+
 	public String getModelo() {
 		return modelo;
 	}
-	
+
 	public float getPotencia() {
 		return potencia;
 	}
@@ -21,8 +21,7 @@ public class Motor {
 
 	@Override
 	public String toString() {
-		return "Motor [modelo=" + modelo + ", potencia=" + potencia + "]";
+		return "Motor: " + getModelo() + ", Potencia: " + getPotencia();
 	}
-	
-	
+
 }

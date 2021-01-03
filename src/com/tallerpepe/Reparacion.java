@@ -36,7 +36,7 @@ public class Reparacion {
 
 	@Override
 	public String toString() {
-		return "Repuestos=" + repuestos + " (" + horasManoObra + "hs)";
+		return "Repuestos=" + getRepuestos() + " (" + getHorasManoObra() + "hs)";
 	}
 	
 	

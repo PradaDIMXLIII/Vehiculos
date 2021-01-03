@@ -60,9 +60,9 @@ public class Presupuesto {
 		texto += getReparable();
 		// Ahora pongo cara reparacion en una linea
 		for (Reparacion reparacion : getReparaciones()) {
-			texto += "\n" + reparacion; // "\n" para dalto de linea
+			texto += "\n" + reparacion; // "\n" para salto de linea
 		}
-		texto += "\nPrecio Total: " + getPrecioTotal(precioManoObra);
+		texto += "\nPrecio Total: " + getPrecioTotal(precioManoObra) + "€";
 		
 		return texto;
 	}
