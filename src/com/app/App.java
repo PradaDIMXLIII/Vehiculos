@@ -9,7 +9,6 @@ import com.tallerpepe.Reparable;
 import com.tallerpepe.Reparacion;
 import com.tallerpepe.Repuesto;
 
-import vehiculos.Coche;
 
 public class App {
 
