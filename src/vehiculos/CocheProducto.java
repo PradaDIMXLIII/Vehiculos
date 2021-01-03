@@ -5,7 +5,12 @@ import com.github.commerce.Merchantable;
 public class CocheProducto extends Coche implements Comerciable, Merchantable {
 
 	private float precio;
-	
+
+	public CocheProducto(String modelo, String color, float precio) {
+		super(modelo, color);
+		this.precio = precio;
+	}
+
 	@Override
 	public String getDescripcion() {
 		return getModelo();
@@ -15,11 +20,6 @@ public class CocheProducto extends Coche implements Comerciable, Merchantable {
 	public float getPrecio() {
 		return precio;
 	}
-	
-	public CocheProducto(String modelo, String color, float precio) {
-	    super(modelo, color);
-	    this.precio = precio;
-	  }
 
 	@Override
 	public String getDescription() {
@@ -30,8 +30,8 @@ public class CocheProducto extends Coche implements Comerciable, Merchantable {
 	public float getPrice() {
 		return getPrecio();
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return getString();
 	}
 

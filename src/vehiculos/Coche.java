@@ -1,13 +1,29 @@
 package vehiculos;
 
-public class Coche extends VehiculoConRuedas {
+import comun.Identificable;
+
+public class Coche extends VehiculoConRuedas implements Identificable<Long> {
 
 	private int numeroDeRuedas;
 	private String matricula;
-	protected static int miCodigoSecreto = 12345;
+	private Motor motor;
+	private Long id = 0L;
+
+	@Override
+	public Long getId() {
+		return id;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
 
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
+	}
+
+	public Motor getMotor() {
+		return motor;
 	}
 
 	public Coche() {
@@ -29,36 +45,26 @@ public class Coche extends VehiculoConRuedas {
 	}
 
 	public Coche(String modelo, String color, int ruedas) {
-		super(modelo, color);
-		numeroDeRuedas = ruedas;
+		this(modelo, color, ruedas, null);
 	}
 
-	// public Coche color(String color) {
-	// setColor(color);
-	// return this;
-	// }
-	//
-	// public Coche modelo(String modelo) {
-	// this.modelo = modelo;
-	// return this;
-	// }
-
-	// public static Coche crearConModelo(String modelo) {
-	// Coche coche = new Coche();
-	// coche.modelo = modelo;
-	// return coche;
-	// }
+	public Coche(String modelo, String color, int ruedas, Motor motor) {
+		super(modelo, color);
+		numeroDeRuedas = ruedas;
+		velocidad = 5;
+		this.motor = motor;
+	}
 
 	@Override
 	public String toString() {
-		return super.toString() + ", " + numeroDeRuedas + " ruedas";
+		return "Placa " + getMatricula() + " - " + super.toString() + " | " + getMotor();
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
+		result = prime * result + ((getMatricula() == null) ? 0 : getMatricula().hashCode());
 		result = prime * result + ((getModelo() == null) ? 0 : getModelo().hashCode());
 		return result;
 	}
@@ -72,10 +78,10 @@ public class Coche extends VehiculoConRuedas {
 		if (getClass() != obj.getClass())
 			return false;
 		Coche other = (Coche) obj;
-		if (matricula == null) {
-			if (other.matricula != null)
+		if (getMatricula() == null) {
+			if (other.getMatricula() != null)
 				return false;
-		} else if (!matricula.equals(other.matricula))
+		} else if (!getMatricula().equals(other.getMatricula()))
 			return false;
 		if (getModelo() == null) {
 			if (other.getModelo() != null)
@@ -88,12 +94,12 @@ public class Coche extends VehiculoConRuedas {
 	@Override
 	public void arrancar() {
 		System.out.println("Coche arrancando");
-		
+
 	}
 
 	@Override
 	public int getNumeroDeRuedas() {
-		// TODO Auto-generated method stub
 		return numeroDeRuedas;
 	}
+
 }

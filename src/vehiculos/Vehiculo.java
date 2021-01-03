@@ -1,10 +1,20 @@
 package vehiculos;
 
-public class Vehiculo implements Comparable<Vehiculo> {
+import java.util.Comparator;
+import ejemplos_uso.Acelerable;
+
+public class Vehiculo implements Acelerable, Comparable<Vehiculo> {
 
 	private static final String MODELO_NO_DISPONIBLE = "N/A";
-	protected String modelo;
+	public static final Comparator<Vehiculo> COMPARADOR_LONGITUD_MODELO = new Comparator<Vehiculo>() {
+		@Override
+		public int compare(Vehiculo arg0, Vehiculo arg1) {
+			return arg0.getModelo().length() - arg1.getModelo().length();
+		}
+	};
+	private String modelo;
 	private String color;
+	protected float velocidad = 0;
 
 	public String getColor() {
 		return color;
@@ -15,8 +25,7 @@ public class Vehiculo implements Comparable<Vehiculo> {
 	}
 
 	protected String getModelo() {
-		// return modelo == null ? MODELO_NO_DISPONIBLE : modelo;
-		return modelo;
+		return modelo == null ? MODELO_NO_DISPONIBLE : modelo + " (" + getColor() + ")";
 	}
 
 	public Vehiculo() {
@@ -30,21 +39,38 @@ public class Vehiculo implements Comparable<Vehiculo> {
 	@Override
 	public String toString() {
 		return (getModelo() == null ? MODELO_NO_DISPONIBLE : getModelo())
-				// return getModelo()
 				+ " (" + color + ")";
 	}
 
 	@Override
-	public int compareTo(Vehiculo vehiculo) {
-		return getModelo().compareTo(vehiculo.getModelo());
+	public float getVelocidad() {
+		return velocidad;
 	}
-	
-	
+
+	@Override
+	public float getAceleracion() {
+		return 2;
+	}
+
+	@Override
+	public int compareTo(Vehiculo other) {
+		int resultado = COMPARADOR_LONGITUD_MODELO.compare(this, other);
+		if (resultado == 0) {
+			resultado = getColor().compareTo(other.getColor());
+		}
+		if (resultado == 0) {
+
+		}
+
+		return resultado;
+	}
+
+
 //	public int compareTo(Vehiculo vehiculo) {
 //		// para ordenar por el tamaño de los carateres del modelo
 //		return getModelo().length() - (vehiculo.getModelo().length());
 //	}
-	
+
 //	public int compareTo(Vehiculo vehiculo) {
 //		// para ordenar por el tamaño de los carateres del modelo
 //		int resultado = getModelo().length() - (vehiculo.getModelo().length());
@@ -58,5 +84,5 @@ public class Vehiculo implements Comparable<Vehiculo> {
 //		}
 //		return resultado;
 //	}
-	
+
 }

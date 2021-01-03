@@ -2,10 +2,6 @@ package vehiculos;
 
 public class Moto extends VehiculoConRuedas {
 
-	public Moto() {
-		super();
-	}
-
 	public Moto(String modelo, String color) {
 		super(modelo, color);
 	}
