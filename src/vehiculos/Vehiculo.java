@@ -1,10 +1,18 @@
 package vehiculos;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+
+import com.tallerpepe.Reparable;
+import com.tallerpepe.Reparacion;
+
 import ejemplos_uso.Acelerable;
 
-public class Vehiculo implements Acelerable, Comparable<Vehiculo> {
+public class Vehiculo implements Acelerable, Reparable, Comparable<Vehiculo> {
 
+	private List<Reparacion> reparacionesPendientes = new ArrayList<>();
 	private static final String MODELO_NO_DISPONIBLE = "N/A";
 	public static final Comparator<Vehiculo> COMPARADOR_LONGITUD_MODELO = new Comparator<Vehiculo>() {
 		@Override
@@ -12,9 +20,15 @@ public class Vehiculo implements Acelerable, Comparable<Vehiculo> {
 			return arg0.getModelo().length() - arg1.getModelo().length();
 		}
 	};
+
+	private LocalDate fechaEntrada;
 	private String modelo;
 	private String color;
 	protected float velocidad = 0;
+
+	public void setFechaEntrada(LocalDate fechaEntrada) {
+		this.fechaEntrada = fechaEntrada;
+	}
 
 	public String getColor() {
 		return color;
@@ -25,7 +39,7 @@ public class Vehiculo implements Acelerable, Comparable<Vehiculo> {
 	}
 
 	protected String getModelo() {
-		return modelo == null ? MODELO_NO_DISPONIBLE : modelo + " (" + getColor() + ")";
+		return modelo == null ? MODELO_NO_DISPONIBLE : modelo;
 	}
 
 	public Vehiculo() {
@@ -38,8 +52,7 @@ public class Vehiculo implements Acelerable, Comparable<Vehiculo> {
 
 	@Override
 	public String toString() {
-		return (getModelo() == null ? MODELO_NO_DISPONIBLE : getModelo())
-				+ " (" + color + ")";
+		return (getModelo() == null ? MODELO_NO_DISPONIBLE : getModelo()) + " (" + getColor() + ")";
 	}
 
 	@Override
@@ -65,6 +78,15 @@ public class Vehiculo implements Acelerable, Comparable<Vehiculo> {
 		return resultado;
 	}
 
+	@Override
+	public LocalDate getFechaEntrada() {
+		return fechaEntrada;
+	}
+
+	@Override
+	public List<Reparacion> getReparacionesPendientes() {
+		return reparacionesPendientes;
+	}
 
 //	public int compareTo(Vehiculo vehiculo) {
 //		// para ordenar por el tamaño de los carateres del modelo

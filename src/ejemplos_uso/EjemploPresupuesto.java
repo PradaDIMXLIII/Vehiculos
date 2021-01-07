@@ -2,7 +2,6 @@ package ejemplos_uso;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import com.tallerpepe.Presupuesto;
@@ -26,7 +25,7 @@ public class EjemploPresupuesto {
 		Reparable reparable = new Reparable() {
 
 			@Override
-			public Collection<Reparacion> getReparacionesPendientes() {
+			public List<Reparacion> getReparacionesPendientes() {
 				return reparaciones;
 			}
 

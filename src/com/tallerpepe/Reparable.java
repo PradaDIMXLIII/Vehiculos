@@ -1,11 +1,11 @@
 package com.tallerpepe;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 
 public interface Reparable {
 
 	LocalDate getFechaEntrada();
 
-	Collection<Reparacion> getReparacionesPendientes();
+	List<Reparacion> getReparacionesPendientes();
 }
