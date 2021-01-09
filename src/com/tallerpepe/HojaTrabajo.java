@@ -1,6 +1,7 @@
 package com.tallerpepe;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collection;
 
 public class HojaTrabajo {
@@ -21,17 +22,17 @@ public class HojaTrabajo {
 		return trabajosTerminados;
 	}
 
-	public HojaTrabajo(Reparable reparable, LocalDate fechaFin, Collection<Reparacion> trabajosTerminados) {
+	public HojaTrabajo(Reparable reparable, LocalDate fechaFin, Reparacion... trabajosTerminados) {
 		super();
 		this.reparable = reparable;
 		this.fechaFin = fechaFin;
-		this.trabajosTerminados = trabajosTerminados;
+		this.trabajosTerminados = Arrays.asList(trabajosTerminados);
 	}
 
 	@Override
 	public String toString() {
-		return "\nHojaTrabajo:\n" + getReparable() + ", Fecha de Finalización: " + getFechaFin()
-				+ ", Trabajos Terminados: " + getTrabajosTerminados() + "]";
+		return "\nHojaTrabajo:\n" + getReparable() + "\nFecha de Finalización: " + getFechaFin()
+				+ "\nTrabajos Terminados: " + getTrabajosTerminados() + "]";
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.app;
 
 import java.time.LocalDate;
+
+import com.tallerpepe.HojaTrabajo;
 import com.tallerpepe.Presupuesto;
 import com.tallerpepe.Reparacion;
 import com.tallerpepe.Repuesto;
@@ -99,7 +101,12 @@ public class App {
 				.println("\nEl precio de la reparacion del Coche es: " + String.format("%.2f€", precioReparacionCoche));
 		System.out.println(
 				"\nEl precio de la reparacion de la harley es: " + String.format("%.2f€", precioReparacionHarley));
-
+		HojaTrabajo hojaTrabajoCoche = new HojaTrabajo(cocheRenault, LocalDate.of(2021, 01, 12), revision1,
+				cambioRuedasCoche);
+		HojaTrabajo hojaTrabajoHarley = new HojaTrabajo(harley1, LocalDate.of(2021, 01, 11), revision2,
+				cambioRuedasHarley);
+		System.out.println("\nImpresion de Hojas de Trabajo:");
+		System.out.println(hojaTrabajoCoche);
+		System.out.println(hojaTrabajoHarley);
 	}
-
 }
