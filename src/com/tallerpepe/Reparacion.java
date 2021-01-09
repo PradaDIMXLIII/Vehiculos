@@ -3,6 +3,9 @@ package com.tallerpepe;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Reparacion {
 
@@ -11,7 +14,8 @@ public class Reparacion {
 	};
 
 	Tipo tipo;
-	private Collection<Repuesto> repuestos;
+	private Map<Repuesto, Integer> repuestos;
+	private Collection<Repuesto> repuestos2;
 	private float horasManoObra;
 	private boolean garantia;
 	private LocalDate fechaEntregaReparable;
@@ -46,7 +50,7 @@ public class Reparacion {
 		}
 	}
 
-	public Collection<Repuesto> getRepuestos() {
+	public Map<Repuesto, Integer> getRepuestos() {
 		return repuestos;
 	}
 
@@ -64,13 +68,22 @@ public class Reparacion {
 
 	public Reparacion(float horasManoObra, Repuesto... repuestos) {
 		super();
-		this.repuestos = Arrays.asList(repuestos);
+		this.repuestos2 = Arrays.asList(repuestos);
 		this.horasManoObra = horasManoObra;
 	}
 
+	public Reparacion(float horasManoObra) {
+		super();
+		this.repuestos = new HashMap<>();
+		this.horasManoObra = horasManoObra;
+		this.garantia = false;
+	}
+	
 	@Override
 	public String toString() {
 		return "Repuestos=" + getRepuestos() + " (" + getHorasManoObra() + "hs)";
 	}
+
+	
 
 }

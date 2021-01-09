@@ -13,14 +13,28 @@ import java.util.Map;
 public class Taller {
 
 	private List<Reparable> listaReparables;
-	private Map<Repuesto, Integer> almacenRepuestos;
+	private static Map<Repuesto, Integer> almacenRepuestos;
 	private List<HojaTrabajo> hojasTrabajo;
+	public final static Comparator<Reparable> COMPARADOR_TURNO_REPARACION = new Comparator<Reparable>() {
+
+		@Override
+		public int compare(Reparable reparable1, Reparable reparable2) {
+			int resultado = comprobarFaltantesRepuestos(reparable1) - comprobarFaltantesRepuestos(reparable2);
+			if (resultado == 0) {
+				resultado = reparable1.getFechaEntrada().compareTo(reparable2.getFechaEntrada());
+			}
+			if (resultado == 0) {
+				resultado = (int) (calcularTiempoReparacion(reparable1) - calcularTiempoReparacion(reparable2));
+			}
+			return resultado;
+		}
+	};
 
 	public List<Reparable> getListaReparables() {
 		return listaReparables;
 	}
 
-	public Map<Repuesto, Integer> getAlmacenRepuestos() {
+	public static Map<Repuesto, Integer> getAlmacenRepuestos() {
 		return almacenRepuestos;
 	}
 
@@ -46,7 +60,7 @@ public class Taller {
 			List<HojaTrabajo> hojasTrabajo) {
 		super();
 		this.listaReparables = listaReparables;
-		this.almacenRepuestos = almacenRepuestos;
+		Taller.almacenRepuestos = almacenRepuestos;
 		this.hojasTrabajo = hojasTrabajo;
 	}
 
@@ -57,55 +71,48 @@ public class Taller {
 	}
 
 	public List<Reparable> calcularTurnoReparacion(List<Reparable> reparables) {
-		Collections.sort(reparables, new Comparator<Reparable>() {
-
-			@Override
-			public int compare(Reparable reparable1, Reparable reparable2) {
-				int resultado = comprobarFaltantesRepuestos(reparable1) - comprobarFaltantesRepuestos(reparable2);
-				if (resultado == 0) {
-					resultado = reparable1.getFechaEntrada().compareTo(reparable2.getFechaEntrada());
-				}
-				if (resultado == 0) {
-					resultado = calcularTiempoReparacion(reparable1) - calcularTiempoReparacion(reparable2);
-				}
-				return resultado;
-			}
-		});
+		Collections.sort(reparables, COMPARADOR_TURNO_REPARACION);
 		return reparables;
 	}
 
-	public int calcularTiempoReparacion(Reparable reparable) {
-		int tiempo = 0;
-		for (Reparacion reparacion : reparable.getReparacionesPendientes()) {
-			tiempo += reparacion.getHorasManoObra();
-		}
-		return tiempo;
+	static double calcularTiempoReparacion(Reparable reparable) {
+//		float tiempo = 0.0f;
+//		for (Reparacion reparacion : reparable.getReparacionesPendientes()) {
+//			tiempo += reparacion.getHorasManoObra();
+//		}
+//		return tiempo;
+		return reparable.getReparacionesPendientes().stream().mapToDouble(Reparacion::getHorasManoObra).sum();
 	}
 
-	public int comprobarFaltantesRepuestos(Reparable reparable) {
+	static int comprobarFaltantesRepuestos(Reparable reparable) {
 		int contador = 0;
 		for (Reparacion reparacion : reparable.getReparacionesPendientes()) {
-			for (Repuesto repuesto : reparacion.getRepuestos()) {
-				if (!comprobarRepuestosAlmacen(repuesto)) {
+			for (Map.Entry<Repuesto, Integer> entry : reparacion.getRepuestos().entrySet()) {
+				if (comprobarRepuestosAlmacen(entry.getKey(), entry.getValue())) {
 					contador++;
 				}
 			}
+//			for (Repuesto repuesto : reparacion.getRepuestos()) {
+//				if (!comprobarRepuestosAlmacen(repuesto)) {
+//					contador++;
+//				}
+//			}
 		}
 		return contador;
 	}
 
-	public boolean comprobarRepuestosAlmacen(Repuesto repuesto) {
-		return (getAlmacenRepuestos().get(repuesto) > 0);
+	static boolean comprobarRepuestosAlmacen(Repuesto repuesto, int valor) {
+		return (getAlmacenRepuestos().get(repuesto) < valor);
 	}
-	
+
 	public boolean comprobarMalUso(Reparacion reparacion) {
 		boolean resultado = false;
-			if (reparacion.isMalUso()) {
-				resultado = true;
+		if (reparacion.isMalUso()) {
+			resultado = true;
 		}
 		return resultado;
 	}
-	
+
 	public boolean comprobarGarantiaReparacion(Reparacion reparacion) {
 		boolean resultado = false;
 		if (reparacion.getFechaFinGarantiaReparacion().isAfter(LocalDate.now())) {
@@ -113,16 +120,15 @@ public class Taller {
 		}
 		return resultado;
 	}
-	
+
 	public float calcularPrecioReparaciones(Reparable reparable) {
 		float precioReparaciones = 0;
 		Presupuesto presupuesto = new Presupuesto(reparable);
 		for (Reparacion reparacion : reparable.getReparacionesPendientes()) {
 			if (!comprobarGarantiaReparacion(reparacion) || comprobarMalUso(reparacion)) {
-				precioReparaciones+= presupuesto.getPrecioTotal(10.50f);
+				precioReparaciones += presupuesto.getPrecioTotal(10f);
 			}
 		}
 		return precioReparaciones;
 	}
-
 }

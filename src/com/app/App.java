@@ -23,24 +23,28 @@ public class App {
 		Repuesto filtroAire = new Repuesto("Filtro aire", 8.50f);
 		Repuesto pastillaFreno = new Repuesto("Pastilla freno", 9.70f);
 		Repuesto limpiaParabrisas = new Repuesto("Limpiaparabrisas 2L", 3.50f);
-		Reparacion revision1 = new Reparacion(2f, filtroAceite, aceiteMotor, filtroAire, limpiaParabrisas);
-		Reparacion revision2 = new Reparacion(1.20f, pastillaFreno);
-		Reparacion cambioRuedasCoche = new Reparacion(2.30f, ruedaCoche, ruedaCoche, ruedaCoche, ruedaCoche);
-		Reparacion cambioRuedasHarley = new Reparacion(1.20f, ruedaHarley, ruedaHarley);
+		Reparacion revision1 = new Reparacion(2f);
+		revision1.getRepuestos().put(aceiteMotor, 2);
+		revision1.getRepuestos().put(filtroAceite, 1);
+		Reparacion revision2 = new Reparacion(1.30f);
+		revision2.getRepuestos().put(pastillaFreno, 2);
+		Reparacion cambioRuedasCoche = new Reparacion(2.30f);
+		cambioRuedasCoche.getRepuestos().put(ruedaCoche, 4);
+		Reparacion cambioRuedasHarley = new Reparacion(1.45f);
+		cambioRuedasHarley.getRepuestos().put(ruedaHarley, 2);
 
 		Coche cocheRenault = new Coche("Renault 21", "verde");
 		cocheRenault.setMatricula("2153BNR");
 		cocheRenault.getReparacionesPendientes().add(revision1);
-		cocheRenault.getReparacionesPendientes().get(0).setGarantia(false);
+//		cocheRenault.getReparacionesPendientes().get(0).setGarantia(true);
 		cocheRenault.getReparacionesPendientes().add(cambioRuedasCoche);
-		cocheRenault.getReparacionesPendientes().get(1).setGarantia(false);
+//		cocheRenault.getReparacionesPendientes().get(1).setGarantia(true);
 		cocheRenault.setFechaEntrada(LocalDate.of(2021, 01, 05));
 
 		Moto harley1 = new Moto("HARLEY DAVIDSON", "negro");
 		harley1.getReparacionesPendientes().add(revision2);
-		harley1.getReparacionesPendientes().get(0).setGarantia(true);
+//		harley1.getReparacionesPendientes().get(0).setGarantia(true);
 		harley1.getReparacionesPendientes().add(cambioRuedasHarley);
-		harley1.getReparacionesPendientes().get(1).setGarantia(false);
 		harley1.setFechaEntrada(LocalDate.of(2021, 01, 05));
 
 		Taller taller1 = new Taller(cocheRenault, harley1);
@@ -48,9 +52,9 @@ public class App {
 //		taller1.getListaReparables().add(harley1);
 
 		Presupuesto presupuestoRenault = new Presupuesto(cocheRenault);
-		System.out.println(presupuestoRenault.calcularTextoPresupuesto(8.90f));
+		System.out.println(presupuestoRenault.calcularTextoPresupuesto(10f));
 		Presupuesto presupuestoHarley = new Presupuesto(harley1);
-		System.out.println(presupuestoHarley.calcularTextoPresupuesto(7.50f));
+		System.out.println(presupuestoHarley.calcularTextoPresupuesto(10f));
 
 		/*
 		 * El turno para reparar los vehículos los dará en primer lugar la existencia de
@@ -59,17 +63,18 @@ public class App {
 		 * estimado.
 		 */
 
-		taller1.getAlmacenRepuestos().put(limpiaParabrisas, 2);
-		taller1.getAlmacenRepuestos().put(pastillaFreno, 1);
-		taller1.getAlmacenRepuestos().put(filtroAire, 3);
-		taller1.getAlmacenRepuestos().put(aceiteMotor, 1);
-		taller1.getAlmacenRepuestos().put(filtroAceite, 2);
-		taller1.getAlmacenRepuestos().put(ruedaHarley, 0);
-		taller1.getAlmacenRepuestos().put(ruedaCoche, 3);
+		Taller.getAlmacenRepuestos().put(limpiaParabrisas, 2);
+		Taller.getAlmacenRepuestos().put(pastillaFreno, 1);
+		Taller.getAlmacenRepuestos().put(filtroAire, 3);
+		Taller.getAlmacenRepuestos().put(aceiteMotor, 1);
+		Taller.getAlmacenRepuestos().put(filtroAceite, 2);
+		Taller.getAlmacenRepuestos().put(ruedaHarley, 0);
+		Taller.getAlmacenRepuestos().put(ruedaCoche, 4);
 
-		System.out.println("\nAlmacén de Repuestos:\n" + taller1.getAlmacenRepuestos().toString());
+		System.out.println("\nAlmacén de Repuestos:\n" + Taller.getAlmacenRepuestos().toString());
 		System.out.println("\nCálculo del turno de reparación:");
-		taller1.calcularTurnoReparacion(taller1.getListaReparables());
+		taller1.getListaReparables().sort(Taller.COMPARADOR_TURNO_REPARACION);
+//		taller1.calcularTurnoReparacion(taller1.getListaReparables());
 		taller1.getListaReparables().forEach(System.out::println);
 
 		/*
@@ -78,7 +83,7 @@ public class App {
 		 * taller reparará dicha avería sin coste para el cliente a menos que en la
 		 * diagnosis de detecte algún tipo de mal uso o fraude.
 		 */
-		cambioRuedasCoche.setFechaEntregaReparable(LocalDate.of(2020, 01, 01));
+		cambioRuedasCoche.setFechaEntregaReparable(LocalDate.of(2020, 01, 10));
 		cambioRuedasCoche.setFechaFinGarantiaReparacion();
 		cambioRuedasHarley.setFechaEntregaReparable(LocalDate.of(2020, 01, 03));
 		cambioRuedasHarley.setFechaFinGarantiaReparacion();

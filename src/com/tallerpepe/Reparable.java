@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface Reparable {
 
-	LocalDate getFechaEntrada();
+	LocalDate getFechaEntrada(); 
 
 	List<Reparacion> getReparacionesPendientes();
 }
