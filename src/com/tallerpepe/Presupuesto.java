@@ -60,13 +60,16 @@ public class Presupuesto {
 	}
 
 	public String calcularTextoPresupuesto(float precioManoObra) {
+		float horasTotalesManoObra = 0;
 		String texto = "\nPresupuesto para:\n";
 		texto += getReparable();
 		// Ahora pongo cara reparacion en una linea
 		for (Reparacion reparacion : getReparaciones()) {
 			texto += "\n" + reparacion; // "\n" para salto de linea
+			horasTotalesManoObra += reparacion.getHorasManoObra();
 		}
-		texto += "\nPrecio Total: " + String.format("%.2f €", getPrecioTotal(precioManoObra));
+		texto += "\nPrecio Total: " + String.format("%.2f €", getPrecioTotal(precioManoObra))
+				+ String.format("\nHoras totales de mano de obra: %.2f horas",  horasTotalesManoObra);
 
 		return texto;
 	}
